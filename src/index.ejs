@@ -1,0 +1,26 @@
+<% var item, key %>
+
+<% scripts = htmlWebpackPlugin.files.js || [] %>
+<% styles = htmlWebpackPlugin.files.css || [] %>
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <title>My React Configuration Setup</title> -->
+
+    <% for (style of styles) { %>
+      <% if (typeof style === 'string' || style instanceof String) { style = { href: style, type: 'text/css', rel: 'stylesheet', media: 'all' } } %>
+      <link<% for (key in style) { %> <%= key %>="<%= style[key] %>"<% } %> />
+      <% } %>
+      
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <main class='main' id="page"></main>
+    <% for (item of scripts) { %>
+      <% if (typeof item === 'string' || item instanceof String) { item = { src: item, type: 'text/javascript' } } %>
+      <script<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>></script>
+    <% } %>
+  </body>
+</html>
